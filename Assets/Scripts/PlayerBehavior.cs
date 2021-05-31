@@ -6,13 +6,13 @@ public class PlayerBehavior : MonoBehaviour {
     private const float Speed = 20.0f;
 
     // Start is called before the first frame update
-    void Start() {
+    private void Start() {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
-    void Update() {
+    private void Update() {
         if (Input.GetAxisRaw("Horizontal") > 0) {
             _spriteRenderer.flipX = true;
         }
