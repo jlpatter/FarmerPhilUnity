@@ -7,24 +7,34 @@ public class SpawnerBehavior : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        Instantiate(wheatPrefab, Vector3.zero, Quaternion.identity);
-        Debug.Log(tilemap.GetSprite(new Vector3Int(0, 0, 0)).name);
+        // Find wheat's x start location
         var tileNameX = "dirt";
-        var x = 0;
+        var wheatXStartLocation = 0;
         while (tileNameX.Equals("dirt")) {
-            x--;
-            tileNameX = tilemap.GetSprite(new Vector3Int(x, 0, 0)).name;
+            wheatXStartLocation--;
+            tileNameX = tilemap.GetSprite(new Vector3Int(wheatXStartLocation, 0, 0)).name;
         }
-        x++;
+        wheatXStartLocation++;
 
+        // Find wheat's y start location
         var tileNameY = "dirt";
-        var y = 0;
+        var wheatYLocation = 0;
         while (tileNameY.Equals("dirt")) {
-            y--;
-            tileNameY = tilemap.GetSprite(new Vector3Int(0, y, 0)).name;
+            wheatYLocation--;
+            tileNameY = tilemap.GetSprite(new Vector3Int(0, wheatYLocation, 0)).name;
         }
-        y++;
+        wheatYLocation++;
 
-        Instantiate(wheatPrefab, new Vector3(x, y, 0.0f), Quaternion.identity);
+        var wheatSize = wheatPrefab.GetComponent<SpriteRenderer>().bounds.size;
+        var wheatXLocation = wheatXStartLocation;
+
+        while (tilemap.GetSprite(new Vector3Int(0, wheatYLocation, 0)).name.Equals("dirt")) {
+            while (tilemap.GetSprite(new Vector3Int(wheatXLocation, 0, 0)).name.Equals("dirt")) {
+                Instantiate(wheatPrefab, new Vector3(wheatXLocation + wheatSize.x / 2.0f, wheatYLocation + wheatSize.y / 2.0f, 0.0f), Quaternion.identity);
+                wheatXLocation++;
+            }
+            wheatXLocation = wheatXStartLocation;
+            wheatYLocation++;
+        }
     }
 }
