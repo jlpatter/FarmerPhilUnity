@@ -5,7 +5,8 @@ public class GrubBehavior : MonoBehaviour {
     private SpriteRenderer _spriteRenderer;
     private GameObject _playerGameObject;
     private GameObject _wheatField;
-    private bool _hasNearbyWheat = false;
+    private bool _hasNearbyWheat;
+    private GameObject _nearbyWheat;
     
     private const float Speed = 2.0f;
     private const float DeadZone = 0.1f;
@@ -22,7 +23,11 @@ public class GrubBehavior : MonoBehaviour {
     private void Update() {
         // TODO: Make it so the player is followed when near
         if (true) {
-            FollowGameObject(FindNearestWheat());
+            if (!_hasNearbyWheat) {
+                _nearbyWheat = FindNearestWheat();
+                _hasNearbyWheat = true;
+            }
+            FollowGameObject(_nearbyWheat);
         }
         else {
             FollowGameObject(_playerGameObject);
