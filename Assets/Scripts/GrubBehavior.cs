@@ -4,6 +4,8 @@ public class GrubBehavior : MonoBehaviour {
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private GameObject _playerGameObject;
+    private GameObject _wheatField;
+    private bool _hasNearbyWheat = false;
     
     private const float Speed = 2.0f;
     private const float DeadZone = 0.1f;
@@ -13,34 +15,58 @@ public class GrubBehavior : MonoBehaviour {
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        _wheatField = GameObject.FindGameObjectWithTag("WheatField");
     }
 
     // Update is called once per frame
     private void Update() {
+        // TODO: Make it so the player is followed when near
+        if (true) {
+            FollowGameObject(FindNearestWheat());
+        }
+        else {
+            FollowGameObject(_playerGameObject);
+        }
+    }
+
+    private GameObject FindNearestWheat() {
+        var shortestDistance = 999999999f;
+        var currentWheat = _wheatField.transform.GetChild(0).gameObject;
+        for (var i = 0; i < _wheatField.transform.childCount; i++) {
+            var currentDistance = (transform.position - _wheatField.transform.GetChild(i).position).magnitude;
+            if (currentDistance < shortestDistance) {
+                shortestDistance = currentDistance;
+                currentWheat = _wheatField.transform.GetChild(i).gameObject;
+            }
+        }
+        return currentWheat;
+    }
+
+    private void FollowGameObject(GameObject gameObjectToTravelTo) {
         var travelVector = transform.position;
         var isMoving = false;
-        if (_playerGameObject.transform.position.x - DeadZone > travelVector.x) {
+        if (gameObjectToTravelTo.transform.position.x - DeadZone > travelVector.x) {
             travelVector.x += Speed * Time.deltaTime;
             _animator.SetInteger("MoveState", 1);
             _spriteRenderer.flipX = false;
             isMoving = true;
         }
         
-        if (_playerGameObject.transform.position.x + DeadZone < travelVector.x) {
+        if (gameObjectToTravelTo.transform.position.x + DeadZone < travelVector.x) {
             travelVector.x -= Speed * Time.deltaTime;
             _animator.SetInteger("MoveState", 1);
             _spriteRenderer.flipX = true;
             isMoving = true;
         }
         
-        if (_playerGameObject.transform.position.y - DeadZone > travelVector.y) {
+        if (gameObjectToTravelTo.transform.position.y - DeadZone > travelVector.y) {
             travelVector.y += Speed * Time.deltaTime;
             _animator.SetInteger("MoveState", 2);
             _spriteRenderer.flipX = false;
             isMoving = true;
         }
         
-        if (_playerGameObject.transform.position.y + DeadZone < travelVector.y) {
+        if (gameObjectToTravelTo.transform.position.y + DeadZone < travelVector.y) {
             travelVector.y -= Speed * Time.deltaTime;
             _animator.SetInteger("MoveState", 3);
             _spriteRenderer.flipX = false;

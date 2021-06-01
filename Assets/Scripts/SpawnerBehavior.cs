@@ -5,8 +5,11 @@ public class SpawnerBehavior : MonoBehaviour {
     public GameObject wheatPrefab;
     public Tilemap tilemap;
 
+    private GameObject _wheatField;
+
     // Start is called before the first frame update
     private void Start() {
+        _wheatField = GameObject.FindGameObjectWithTag("WheatField");
         SpawnWheat();
     }
 
@@ -30,8 +33,8 @@ public class SpawnerBehavior : MonoBehaviour {
 
         while (tilemap.GetSprite(new Vector3Int(0, wheatYLocation, 0)).name.Equals("dirt")) {
             while (tilemap.GetSprite(new Vector3Int(wheatXLocation, 0, 0)).name.Equals("dirt")) {
-                Instantiate(wheatPrefab, new Vector3(wheatXLocation + wheatSize.x / 2.0f, wheatYLocation + wheatSize.y / 2.0f, 0.0f), Quaternion.identity);
-                Instantiate(wheatPrefab, new Vector3(wheatXLocation + 0.5f + wheatSize.x / 2.0f, wheatYLocation + wheatSize.y / 2.0f, 0.0f), Quaternion.identity);
+                Instantiate(wheatPrefab, new Vector3(wheatXLocation + wheatSize.x / 2.0f, wheatYLocation + wheatSize.y / 2.0f, 0.0f), Quaternion.identity, _wheatField.transform);
+                Instantiate(wheatPrefab, new Vector3(wheatXLocation + 0.5f + wheatSize.x / 2.0f, wheatYLocation + wheatSize.y / 2.0f, 0.0f), Quaternion.identity, _wheatField.transform);
                 wheatXLocation++;
             }
             wheatXLocation = wheatXStartLocation;
