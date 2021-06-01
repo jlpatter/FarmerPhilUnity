@@ -21,17 +21,22 @@ public class GrubBehavior : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
-        // TODO: Make it so the player is followed when near
-        if (true) {
+        if (IsNearPlayer()) {
+            _hasNearbyWheat = false;
+            FollowGameObject(_playerGameObject);
+        }
+        else {
             if (!_hasNearbyWheat) {
                 _nearbyWheat = FindNearestWheat();
                 _hasNearbyWheat = true;
             }
             FollowGameObject(_nearbyWheat);
         }
-        else {
-            FollowGameObject(_playerGameObject);
-        }
+    }
+
+    private bool IsNearPlayer() {
+        var currentDistance = (transform.position - _playerGameObject.transform.position).magnitude;
+        return currentDistance < 2.0f;
     }
 
     private GameObject FindNearestWheat() {
