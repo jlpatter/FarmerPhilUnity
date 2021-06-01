@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -18,6 +19,7 @@ public class PlayerBehavior : MonoBehaviour {
     private void Start() {
         _health = MaxHealth;
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D.isKinematic = true;
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -25,8 +27,10 @@ public class PlayerBehavior : MonoBehaviour {
     private void Update() {
         ShowPauseMenu();
         MovePlayer();
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.name.Equals("Grubby")) {
             _health -= 5.0f;
             healthBar.SetHealth(_health);
         }

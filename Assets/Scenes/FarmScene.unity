@@ -466,8 +466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -368, y: -242}
-  m_SizeDelta: {x: 158.5589, y: 22.8801}
+  m_AnchoredPosition: {x: -334.4138, y: -243.34344}
+  m_SizeDelta: {x: 225.7313, y: 25.567}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &330407270
 MonoBehaviour:
@@ -5149,6 +5149,7 @@ GameObject:
   - component: {fileID: 1522820467}
   - component: {fileID: 1522820466}
   - component: {fileID: 1522820468}
+  - component: {fileID: 1522820470}
   - component: {fileID: 1522820469}
   m_Layer: 0
   m_Name: Grubby
@@ -5253,6 +5254,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4a2eb02822b7943afd21813716b8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &1522820470
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522820465}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3828125
 --- !u!1839735485 &1966569536 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 2335109791095687040, guid: 55108c1b6bc79da459d855e0f640f9a0, type: 3}
