@@ -9,6 +9,7 @@ public class PlayerBehavior : MonoBehaviour {
     public PlayerHealthBar healthBar;
 
     private float _health;
+    private bool _isTouchingGrubby;
     private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer;
 
@@ -18,6 +19,7 @@ public class PlayerBehavior : MonoBehaviour {
     // Start is called before the first frame update
     private void Start() {
         _health = MaxHealth;
+        _isTouchingGrubby = false;
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rigidbody2D.isKinematic = true;
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -26,19 +28,32 @@ public class PlayerBehavior : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
         ShowPauseMenu();
+        TakeDamage();
         MovePlayer();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.name.Equals("Grubby")) {
-            _health -= 5.0f;
-            healthBar.SetHealth(_health);
+            _isTouchingGrubby = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.name.Equals("Grubby")) {
+            _isTouchingGrubby = false;
         }
     }
 
     private void ShowPauseMenu() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             pauseCanvas.SetActive(!pauseCanvas.activeSelf);
+        }
+    }
+
+    private void TakeDamage() {
+        if (_isTouchingGrubby) {
+            _health -= 0.1f;
+            healthBar.SetHealth(_health);
         }
     }
 
