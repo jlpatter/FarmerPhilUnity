@@ -5,14 +5,18 @@ public class PlayerBehavior : MonoBehaviour {
 
     [FormerlySerializedAs("PauseCanvas")]
     public GameObject pauseCanvas;
-    
+    public PlayerHealthBar healthBar;
+
+    private float _health;
     private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer;
-    
+
+    private const float MaxHealth = 100.0f;
     private const float Speed = 20.0f;
 
     // Start is called before the first frame update
     private void Start() {
+        _health = MaxHealth;
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -21,6 +25,11 @@ public class PlayerBehavior : MonoBehaviour {
     private void Update() {
         ShowPauseMenu();
         MovePlayer();
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            _health -= 5.0f;
+            healthBar.SetHealth(_health);
+        }
     }
 
     private void ShowPauseMenu() {
