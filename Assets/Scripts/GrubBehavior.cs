@@ -4,18 +4,21 @@ public class GrubBehavior : MonoBehaviour {
     private PauseMenu _pauseMenu;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
+    private Rigidbody2D _rigidbody2D;
     private GameObject _playerGameObject;
     private GameObject _wheatField;
     private bool _hasNearbyWheat;
     private GameObject _nearbyWheat;
     
-    private const float Speed = 1.0f;
+    private const float Speed = 10.0f;
     private const float DeadZone = 0.1f;
 
     // Start is called before the first frame update
     private void Start() {
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D.isKinematic = true;
         _playerGameObject = GameObject.FindGameObjectWithTag("Player");
         _wheatField = GameObject.FindGameObjectWithTag("WheatField");
         _pauseMenu = GameObject.Find("PauseMenuManager").GetComponent<PauseMenuManager>().pauseMenu;
@@ -57,7 +60,7 @@ public class GrubBehavior : MonoBehaviour {
     }
 
     private void FollowGameObject(GameObject gameObjectToTravelTo) {
-        var travelVector = transform.position;
+        var travelVector = new Vector2(_rigidbody2D.position.x, _rigidbody2D.position.y);
         var isMoving = false;
         if (gameObjectToTravelTo.transform.position.x - DeadZone > travelVector.x) {
             travelVector.x += Speed * Time.deltaTime;
@@ -90,6 +93,6 @@ public class GrubBehavior : MonoBehaviour {
         if (!isMoving) {
             _animator.SetInteger("MoveState", 0);
         }
-        transform.position = travelVector;
+        _rigidbody2D.MovePosition(travelVector);
     }
 }

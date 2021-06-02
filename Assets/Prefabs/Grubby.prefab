@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 600712662321605135}
   - component: {fileID: 600712662321605134}
   - component: {fileID: 600712662321605128}
+  - component: {fileID: -136800230637625290}
   - component: {fileID: 600712662321605130}
   - component: {fileID: 600712662321605129}
   m_Layer: 0
@@ -104,6 +105,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &-136800230637625290
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600712662321605133}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &600712662321605130
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -132,4 +154,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4a2eb02822b7943afd21813716b8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 0}
