@@ -47,6 +47,15 @@ public class SpawnerBehavior : MonoBehaviour {
 
     private void SpawnGrubs() {
         var stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,0));
-        Instantiate(grubPrefab, new Vector3(-stageDimensions.x, -stageDimensions.y, 0.0f), Quaternion.identity);
+        for (var i = 0; i < 10; i++) {
+            var xRandom = 0;
+            var yRandom = 0;
+            // Don't allow both to be 0 as that would put the grub in the center of the field.
+            while (xRandom == 0 && yRandom == 0) {
+                xRandom = Random.Range(-1, 2);
+                yRandom = Random.Range(-1, 2);
+            }
+            Instantiate(grubPrefab, new Vector3(stageDimensions.x * xRandom, stageDimensions.y * yRandom, 0.0f), Quaternion.identity);
+        }
     }
 }
