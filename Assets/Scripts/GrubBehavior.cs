@@ -1,6 +1,8 @@
 using UnityEngine;
 
 public class GrubBehavior : MonoBehaviour {
+    public PauseMenu pauseMenu;
+    
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private GameObject _playerGameObject;
@@ -21,16 +23,18 @@ public class GrubBehavior : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
-        if (IsNearPlayer()) {
-            _hasNearbyWheat = false;
-            FollowGameObject(_playerGameObject);
-        }
-        else {
-            if (!_hasNearbyWheat) {
-                _nearbyWheat = FindNearestWheat();
-                _hasNearbyWheat = true;
+        if (!pauseMenu.isPaused) {
+            if (IsNearPlayer()) {
+                _hasNearbyWheat = false;
+                FollowGameObject(_playerGameObject);
             }
-            FollowGameObject(_nearbyWheat);
+            else {
+                if (!_hasNearbyWheat) {
+                    _nearbyWheat = FindNearestWheat();
+                    _hasNearbyWheat = true;
+                }
+                FollowGameObject(_nearbyWheat);
+            }
         }
     }
 

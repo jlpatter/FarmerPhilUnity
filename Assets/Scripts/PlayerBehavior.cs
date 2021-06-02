@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,6 +6,7 @@ public class PlayerBehavior : MonoBehaviour {
     [FormerlySerializedAs("PauseCanvas")]
     public GameObject pauseCanvas;
     public PlayerHealthBar healthBar;
+    public PauseMenu pauseMenu;
 
     private float _health;
     private bool _isTouchingGrubby;
@@ -28,8 +28,10 @@ public class PlayerBehavior : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
         ShowPauseMenu();
-        TakeDamage();
-        MovePlayer();
+        if (!pauseMenu.isPaused) {
+            TakeDamage();
+            MovePlayer();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -47,6 +49,7 @@ public class PlayerBehavior : MonoBehaviour {
     private void ShowPauseMenu() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             pauseCanvas.SetActive(!pauseCanvas.activeSelf);
+            pauseMenu.isPaused = !pauseMenu.isPaused;
         }
     }
 

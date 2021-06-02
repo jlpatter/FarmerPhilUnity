@@ -268,7 +268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -192}
+  m_AnchoredPosition: {x: 0, y: -108}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &304526064
@@ -568,7 +568,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -852.7295, y: -211.7516}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &393150393
 MonoBehaviour:
@@ -657,6 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f6ac4f967e64a459dd7c3d39458fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPaused: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5101,6 +5102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseCanvas: {fileID: 2057686087}
   healthBar: {fileID: 330407271}
+  pauseMenu: {fileID: 436525683}
 --- !u!70 &1469080095
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -5254,6 +5256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4a2eb02822b7943afd21813716b8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 436525683}
 --- !u!58 &1522820470
 CircleCollider2D:
   m_ObjectHideFlags: 0
