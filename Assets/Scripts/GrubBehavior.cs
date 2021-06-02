@@ -10,7 +10,7 @@ public class GrubBehavior : MonoBehaviour {
     private bool _hasNearbyWheat;
     private GameObject _nearbyWheat;
     
-    private const float Speed = 2.0f;
+    private const float Speed = 1.0f;
     private const float DeadZone = 0.1f;
 
     // Start is called before the first frame update
