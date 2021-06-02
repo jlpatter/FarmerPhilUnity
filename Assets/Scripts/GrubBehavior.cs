@@ -1,8 +1,7 @@
 using UnityEngine;
 
 public class GrubBehavior : MonoBehaviour {
-    public PauseMenu pauseMenu;
-    
+    private PauseMenu _pauseMenu;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private GameObject _playerGameObject;
@@ -19,11 +18,12 @@ public class GrubBehavior : MonoBehaviour {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _playerGameObject = GameObject.FindGameObjectWithTag("Player");
         _wheatField = GameObject.FindGameObjectWithTag("WheatField");
+        _pauseMenu = GameObject.Find("PauseMenuManager").GetComponent<PauseMenuManager>().pauseMenu;
     }
 
     // Update is called once per frame
     private void Update() {
-        if (!pauseMenu.isPaused) {
+        if (!_pauseMenu.isPaused) {
             if (IsNearPlayer()) {
                 _hasNearbyWheat = false;
                 FollowGameObject(_playerGameObject);

@@ -3,6 +3,7 @@ using UnityEngine.Tilemaps;
 
 public class SpawnerBehavior : MonoBehaviour {
     public GameObject wheatPrefab;
+    public GameObject grubPrefab;
     public Tilemap tilemap;
 
     private GameObject _wheatField;
@@ -10,7 +11,9 @@ public class SpawnerBehavior : MonoBehaviour {
     // Start is called before the first frame update
     private void Start() {
         _wheatField = GameObject.FindGameObjectWithTag("WheatField");
+        
         SpawnWheat();
+        SpawnGrubs();
     }
 
     private void SpawnWheat() {
@@ -40,5 +43,10 @@ public class SpawnerBehavior : MonoBehaviour {
             wheatXLocation = wheatXStartLocation;
             wheatYLocation++;
         }
+    }
+
+    private void SpawnGrubs() {
+        var stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,0));
+        Instantiate(grubPrefab, new Vector3(-stageDimensions.x, -stageDimensions.y, 0.0f), Quaternion.identity);
     }
 }
