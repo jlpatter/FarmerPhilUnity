@@ -12,20 +12,17 @@ public class PlayerBehavior : MonoBehaviour {
     private float _health;
     private bool _isTouchingGrubby;
     private bool _hasGoneRight;
-    private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer;
     private SpriteRenderer _batSpriteRenderer;
 
     private const float MaxHealth = 100.0f;
-    private const float Speed = 20.0f;
+    private const float Speed = 5.0f;
 
     // Start is called before the first frame update
     private void Start() {
         _health = MaxHealth;
         _isTouchingGrubby = false;
         _hasGoneRight = false;
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _rigidbody2D.isKinematic = true;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _batSpriteRenderer = bat.GetComponent<SpriteRenderer>();
     }
@@ -90,7 +87,7 @@ public class PlayerBehavior : MonoBehaviour {
                 _hasGoneRight = false;
             }
         }
-        _rigidbody2D.MovePosition(_rigidbody2D.position + new Vector2(Input.GetAxisRaw("Horizontal") * Speed * Time.deltaTime,
-            Input.GetAxisRaw("Vertical") * Speed * Time.deltaTime));
+        transform.position += new Vector3(Input.GetAxisRaw("Horizontal") * Speed * Time.deltaTime,
+            Input.GetAxisRaw("Vertical") * Speed * Time.deltaTime);
     }
 }
