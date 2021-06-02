@@ -28,6 +28,10 @@ public class WheatBehavior : MonoBehaviour {
             
             _health -= 0.1f;
             healthBar.SetHealth(_health);
+
+            if (_health <= 0.0f) {
+                Destroy(gameObject);
+            }
         }
     }
     

@@ -32,11 +32,17 @@ public class GrubBehavior : MonoBehaviour {
                 FollowGameObject(_playerGameObject);
             }
             else {
-                if (!_hasNearbyWheat) {
+                if ((!_hasNearbyWheat || _nearbyWheat == null) && _wheatField.transform.childCount != 0) {
                     _nearbyWheat = FindNearestWheat();
                     _hasNearbyWheat = true;
                 }
-                FollowGameObject(_nearbyWheat);
+
+                if (_wheatField.transform.childCount == 0) {
+                    FollowGameObject(_playerGameObject);
+                }
+                else {
+                    FollowGameObject(_nearbyWheat);
+                }
             }
         }
     }
