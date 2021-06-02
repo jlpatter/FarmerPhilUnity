@@ -1,6 +1,10 @@
 using UnityEngine;
 
 public class GrubBehavior : MonoBehaviour {
+
+    public PlayerHealthBar healthBar;
+
+    private float _health;
     private PauseMenu _pauseMenu;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
@@ -8,6 +12,8 @@ public class GrubBehavior : MonoBehaviour {
     private GameObject _playerGameObject;
     private GameObject _wheatField;
     private bool _hasNearbyWheat;
+    private bool _isTouchingBat;
+    private bool _isFirstDamage;
     private GameObject _nearbyWheat;
     
     private const float Speed = 10.0f;
@@ -15,6 +21,10 @@ public class GrubBehavior : MonoBehaviour {
 
     // Start is called before the first frame update
     private void Start() {
+        _health = 100.0f;
+        _isFirstDamage = true;
+        healthBar.gameObject.transform.parent.gameObject.SetActive(false);
+        _isTouchingBat = false;
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -27,6 +37,8 @@ public class GrubBehavior : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
         if (!_pauseMenu.isPaused) {
+            TakeDamage();
+            
             if (IsNearPlayer()) {
                 _hasNearbyWheat = false;
                 FollowGameObject(_playerGameObject);
@@ -43,6 +55,33 @@ public class GrubBehavior : MonoBehaviour {
                 else {
                     FollowGameObject(_nearbyWheat);
                 }
+            }
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.name.Contains("Bat")) {
+            _isTouchingBat = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.name.Contains("Bat")) {
+            _isTouchingBat = false;
+        }
+    }
+
+    private void TakeDamage() {
+        if (_isTouchingBat) {
+            if (_isFirstDamage) {
+                healthBar.gameObject.transform.parent.gameObject.SetActive(true);
+                _isFirstDamage = false;
+            }
+            _health -= 0.3f;
+            healthBar.SetHealth(_health);
+
+            if (_health <= 0.0f) {
+                Destroy(gameObject);
             }
         }
     }
