@@ -4,6 +4,7 @@ using UnityEngine;
 public class GrubBehavior : MonoBehaviour {
 
     public PlayerHealthBar healthBar;
+    public GameObject poisonIcon;
 
     private float _health;
     private PauseMenu _pauseMenu;
@@ -31,6 +32,7 @@ public class GrubBehavior : MonoBehaviour {
         _health = 100.0f;
         _isFirstDamage = true;
         healthBar.gameObject.transform.parent.gameObject.SetActive(false);
+        poisonIcon.SetActive(false);
         _isTouchingBat = false;
         _isTouchingSpray = false;
         _isPoisoned = false;
@@ -109,6 +111,7 @@ public class GrubBehavior : MonoBehaviour {
 
             if (_isTouchingSpray) {
                 _isPoisoned = true;
+                poisonIcon.SetActive(true);
             }
 
             if (_health <= 0.0f) {
