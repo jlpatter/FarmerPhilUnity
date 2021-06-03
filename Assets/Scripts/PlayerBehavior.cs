@@ -16,6 +16,7 @@ public class PlayerBehavior : MonoBehaviour {
     private SpriteRenderer _batSpriteRenderer;
 
     private const float MaxHealth = 100.0f;
+    private const float GrubStrength = 0.05f;
     private const float Speed = 5.0f;
 
     // Start is called before the first frame update
@@ -58,7 +59,7 @@ public class PlayerBehavior : MonoBehaviour {
 
     private void TakeDamage() {
         if (_isTouchingGrubby) {
-            _health -= 0.1f;
+            _health -= GrubStrength;
             healthBar.SetHealth(_health);
         }
     }
