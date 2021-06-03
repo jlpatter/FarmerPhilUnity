@@ -8,6 +8,7 @@ public class PlayerBehavior : MonoBehaviour {
     public GameObject bat;
     public PlayerHealthBar healthBar;
     public PauseMenu pauseMenu;
+    public StartMenu startMenu;
 
     private float _health;
     private bool _isTouchingGrubby;
@@ -31,7 +32,7 @@ public class PlayerBehavior : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
         ShowPauseMenu();
-        if (!pauseMenu.isPaused) {
+        if (!pauseMenu.isPaused && !startMenu.isStart) {
             TakeDamage();
             SwingBat();
             MovePlayer();

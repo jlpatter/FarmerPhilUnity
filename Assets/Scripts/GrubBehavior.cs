@@ -6,6 +6,7 @@ public class GrubBehavior : MonoBehaviour {
 
     private float _health;
     private PauseMenu _pauseMenu;
+    private StartMenu _startMenu;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
@@ -32,11 +33,12 @@ public class GrubBehavior : MonoBehaviour {
         _playerGameObject = GameObject.FindGameObjectWithTag("Player");
         _wheatField = GameObject.FindGameObjectWithTag("WheatField");
         _pauseMenu = GameObject.Find("PauseMenuManager").GetComponent<PauseMenuManager>().pauseMenu;
+        _startMenu = GameObject.Find("StartMenu").GetComponent<StartMenu>();
     }
 
     // Update is called once per frame
     private void Update() {
-        if (!_pauseMenu.isPaused) {
+        if (!_pauseMenu.isPaused && !_startMenu.isStart) {
             TakeDamage();
             
             if (IsNearPlayer()) {

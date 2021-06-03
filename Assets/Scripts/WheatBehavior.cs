@@ -8,6 +8,7 @@ public class WheatBehavior : MonoBehaviour {
     private bool _isTouchingGrubby;
     private bool _isFirstDamage;
     private PauseMenu _pauseMenu;
+    private StartMenu _startMenu;
 
     private const float MaxHealth = 100.0f;
     
@@ -18,11 +19,12 @@ public class WheatBehavior : MonoBehaviour {
         _isFirstDamage = true;
         healthBar.gameObject.transform.parent.gameObject.SetActive(false);
         _pauseMenu = GameObject.Find("PauseMenuManager").GetComponent<PauseMenuManager>().pauseMenu;
+        _startMenu = GameObject.Find("StartMenu").GetComponent<StartMenu>();
     }
 
     // Update is called once per frame
     private void Update() {
-        if (!_pauseMenu.isPaused) {
+        if (!_pauseMenu.isPaused && !_startMenu.isStart) {
             if (_isTouchingGrubby) {
                 if (_isFirstDamage) {
                     healthBar.gameObject.transform.parent.gameObject.SetActive(true);
