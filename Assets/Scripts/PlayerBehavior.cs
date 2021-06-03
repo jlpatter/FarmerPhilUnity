@@ -1,3 +1,4 @@
+using Menus;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,6 +10,7 @@ public class PlayerBehavior : MonoBehaviour {
     public PlayerHealthBar healthBar;
     public PauseMenu pauseMenu;
     public StartMenu startMenu;
+    public ShopMenu shopMenu;
 
     private float _health;
     private bool _isTouchingGrubby;
@@ -32,7 +34,7 @@ public class PlayerBehavior : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
         ShowPauseMenu();
-        if (!pauseMenu.isPaused && !startMenu.isStart) {
+        if (!pauseMenu.isPaused && !startMenu.isStart && !shopMenu.isShop) {
             TakeDamage();
             SwingBat();
             MovePlayer();

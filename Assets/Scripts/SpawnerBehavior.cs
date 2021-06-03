@@ -7,10 +7,14 @@ public class SpawnerBehavior : MonoBehaviour {
     public Tilemap tilemap;
 
     private GameObject _wheatField;
+    private GameObject _grubArmy;
+    private int _numOfGrubs;
 
     // Start is called before the first frame update
     private void Start() {
         _wheatField = GameObject.Find("WheatField");
+        _grubArmy = GameObject.Find("GrubArmy");
+        _numOfGrubs = 4;
         
         SpawnWheat();
         SpawnGrubs();
@@ -47,7 +51,7 @@ public class SpawnerBehavior : MonoBehaviour {
 
     private void SpawnGrubs() {
         var stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,0));
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < _numOfGrubs; i++) {
             var xRandom = 0;
             var yRandom = 0;
             // Don't allow both to be 0 as that would put the grub in the center of the field.
@@ -55,7 +59,7 @@ public class SpawnerBehavior : MonoBehaviour {
                 xRandom = Random.Range(-1, 2);
                 yRandom = Random.Range(-1, 2);
             }
-            Instantiate(grubPrefab, new Vector3(stageDimensions.x * xRandom, stageDimensions.y * yRandom, 0.0f), Quaternion.identity);
+            Instantiate(grubPrefab, new Vector3(stageDimensions.x * xRandom, stageDimensions.y * yRandom, 0.0f), Quaternion.identity, _grubArmy.transform);
         }
     }
 }

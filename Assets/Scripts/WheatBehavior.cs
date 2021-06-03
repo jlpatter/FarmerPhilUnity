@@ -1,3 +1,4 @@
+using Menus;
 using UnityEngine;
 
 public class WheatBehavior : MonoBehaviour {
@@ -9,6 +10,7 @@ public class WheatBehavior : MonoBehaviour {
     private bool _isFirstDamage;
     private PauseMenu _pauseMenu;
     private StartMenu _startMenu;
+    private ShopMenu _shopMenu;
 
     private const float MaxHealth = 100.0f;
     
@@ -20,11 +22,12 @@ public class WheatBehavior : MonoBehaviour {
         healthBar.gameObject.transform.parent.gameObject.SetActive(false);
         _pauseMenu = GameObject.Find("PauseMenuManager").GetComponent<PauseMenuManager>().pauseMenu;
         _startMenu = GameObject.Find("StartMenu").GetComponent<StartMenu>();
+        _shopMenu = GameObject.Find("ShopMenuManager").GetComponent<ShopMenuManager>().shopMenu;
     }
 
     // Update is called once per frame
     private void Update() {
-        if (!_pauseMenu.isPaused && !_startMenu.isStart) {
+        if (!_pauseMenu.isPaused && !_startMenu.isStart && !_shopMenu.isShop) {
             if (_isTouchingGrubby) {
                 if (_isFirstDamage) {
                     healthBar.gameObject.transform.parent.gameObject.SetActive(true);

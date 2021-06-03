@@ -1,3 +1,4 @@
+using Menus;
 using UnityEngine;
 
 public class GrubBehavior : MonoBehaviour {
@@ -7,11 +8,13 @@ public class GrubBehavior : MonoBehaviour {
     private float _health;
     private PauseMenu _pauseMenu;
     private StartMenu _startMenu;
+    private ShopMenu _shopMenu;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
     private GameObject _playerGameObject;
     private GameObject _wheatField;
+    private GameObject _grubArmy;
     private bool _hasNearbyWheat;
     private bool _isTouchingBat;
     private bool _isFirstDamage;
@@ -32,13 +35,15 @@ public class GrubBehavior : MonoBehaviour {
         _rigidbody2D.isKinematic = true;
         _playerGameObject = GameObject.FindGameObjectWithTag("Player");
         _wheatField = GameObject.FindGameObjectWithTag("WheatField");
+        _grubArmy = GameObject.Find("GrubArmy");
         _pauseMenu = GameObject.Find("PauseMenuManager").GetComponent<PauseMenuManager>().pauseMenu;
         _startMenu = GameObject.Find("StartMenu").GetComponent<StartMenu>();
+        _shopMenu = GameObject.Find("ShopMenuManager").GetComponent<ShopMenuManager>().shopMenu;
     }
 
     // Update is called once per frame
     private void Update() {
-        if (!_pauseMenu.isPaused && !_startMenu.isStart) {
+        if (!_pauseMenu.isPaused && !_startMenu.isStart && !_shopMenu.isShop) {
             TakeDamage();
             
             if (IsNearPlayer()) {
@@ -83,6 +88,9 @@ public class GrubBehavior : MonoBehaviour {
             healthBar.SetHealth(_health);
 
             if (_health <= 0.0f) {
+                if (_grubArmy.transform.childCount == 1) {
+                    _shopMenu.SetIsShop(true);
+                }
                 Destroy(gameObject);
             }
         }
