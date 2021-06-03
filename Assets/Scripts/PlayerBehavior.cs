@@ -7,16 +7,19 @@ public class PlayerBehavior : MonoBehaviour {
     [FormerlySerializedAs("PauseCanvas")]
     public GameObject pauseCanvas;
     public GameObject bat;
+    public GameObject sprayCan;
     public PlayerHealthBar healthBar;
     public PauseMenu pauseMenu;
     public StartMenu startMenu;
     public ShopMenu shopMenu;
 
     private float _health;
+    private int _currentWeaponIndex;
     private bool _isTouchingGrubby;
     private bool _hasGoneRight;
     private SpriteRenderer _spriteRenderer;
     private SpriteRenderer _batSpriteRenderer;
+    private SpriteRenderer _sprayCanSpriteRenderer;
 
     private const float MaxHealth = 100.0f;
     private const float GrubStrength = 0.05f;
@@ -25,10 +28,12 @@ public class PlayerBehavior : MonoBehaviour {
     // Start is called before the first frame update
     private void Start() {
         _health = MaxHealth;
+        _currentWeaponIndex = 0;
         _isTouchingGrubby = false;
         _hasGoneRight = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _batSpriteRenderer = bat.GetComponent<SpriteRenderer>();
+        _sprayCanSpriteRenderer = sprayCan.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -36,7 +41,15 @@ public class PlayerBehavior : MonoBehaviour {
         ShowPauseMenu();
         if (!pauseMenu.isPaused && !startMenu.isStart && !shopMenu.isShop) {
             TakeDamage();
-            SwingBat();
+            SwitchWeapon();
+            if (gameObject.transform.GetChild(_currentWeaponIndex).name.Equals("Bat")) {
+                sprayCan.SetActive(false);
+                SwingBat();
+            }
+            else if (gameObject.transform.GetChild(_currentWeaponIndex).name.Equals("SprayCan")) {
+                bat.SetActive(false);
+                SprayCan();
+            }
             MovePlayer();
         }
     }
@@ -67,9 +80,33 @@ public class PlayerBehavior : MonoBehaviour {
         }
     }
 
+    private void SwitchWeapon() {
+        if (Input.GetKeyDown(KeyCode.E)) {
+            _currentWeaponIndex++;
+            if (_currentWeaponIndex >= gameObject.transform.childCount) {
+                _currentWeaponIndex = 0;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Q)) {
+            _currentWeaponIndex--;
+            if (_currentWeaponIndex < 0) {
+                _currentWeaponIndex = gameObject.transform.childCount - 1;
+            }
+        }
+    }
+
     private void SwingBat() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             bat.SetActive(true);
+        }
+    }
+
+    private void SprayCan() {
+        if (Input.GetKey(KeyCode.Space)) {
+            sprayCan.SetActive(true);
+        }
+        else {
+            sprayCan.SetActive(false);
         }
     }
 
@@ -77,8 +114,10 @@ public class PlayerBehavior : MonoBehaviour {
         if (Input.GetAxisRaw("Horizontal") > 0) {
             _spriteRenderer.flipX = true;
             _batSpriteRenderer.flipX = true;
+            _sprayCanSpriteRenderer.flipX = true;
             if (!_hasGoneRight) {
                 bat.transform.localPosition = new Vector3(-bat.transform.localPosition.x, bat.transform.localPosition.y, bat.transform.localPosition.z);
+                sprayCan.transform.localPosition = new Vector3(-sprayCan.transform.localPosition.x, sprayCan.transform.localPosition.y, sprayCan.transform.localPosition.z);
                 _hasGoneRight = true;
             }
         }
@@ -86,8 +125,10 @@ public class PlayerBehavior : MonoBehaviour {
         if (Input.GetAxisRaw("Horizontal") < 0) {
             _spriteRenderer.flipX = false;
             _batSpriteRenderer.flipX = false;
+            _sprayCanSpriteRenderer.flipX = false;
             if (_hasGoneRight) {
                 bat.transform.localPosition = new Vector3(-bat.transform.localPosition.x, bat.transform.localPosition.y, bat.transform.localPosition.z);
+                sprayCan.transform.localPosition = new Vector3(-sprayCan.transform.localPosition.x, sprayCan.transform.localPosition.y, sprayCan.transform.localPosition.z);
                 _hasGoneRight = false;
             }
         }
