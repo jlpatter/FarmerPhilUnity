@@ -8,13 +8,13 @@ public class SpawnerBehavior : MonoBehaviour {
 
     private GameObject _wheatField;
     private GameObject _grubArmy;
-    private int _numOfGrubs;
-
+    private GrubArmyBehavior _grubArmyBehavior;
+    
     // Start is called before the first frame update
     private void Start() {
         _wheatField = GameObject.Find("WheatField");
         _grubArmy = GameObject.Find("GrubArmy");
-        _numOfGrubs = 4;
+        _grubArmyBehavior = _grubArmy.GetComponent<GrubArmyBehavior>();
         
         SpawnWheat();
         SpawnGrubs();
@@ -49,9 +49,9 @@ public class SpawnerBehavior : MonoBehaviour {
         }
     }
 
-    private void SpawnGrubs() {
+    public void SpawnGrubs() {
         var stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,0));
-        for (var i = 0; i < _numOfGrubs; i++) {
+        for (var i = 0; i < _grubArmyBehavior.numOfGrubs; i++) {
             var xRandom = 0;
             var yRandom = 0;
             // Don't allow both to be 0 as that would put the grub in the center of the field.

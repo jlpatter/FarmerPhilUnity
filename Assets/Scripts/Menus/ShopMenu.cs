@@ -3,10 +3,13 @@ using UnityEngine;
 namespace Menus {
     public class ShopMenu : MonoBehaviour {
         public bool isShop;
+        public SpawnerBehavior spawnerBehavior;
+        public GrubArmyBehavior grubArmyBehavior;
 
-        private void Start() {
-            isShop = false;
-            transform.parent.parent.gameObject.SetActive(false);
+        public void ContinueGame() {
+            SetIsShop(false);
+            grubArmyBehavior.numOfGrubs = 5;
+            spawnerBehavior.SpawnGrubs();
         }
 
         public void SetIsShop(bool isShopValue) {
