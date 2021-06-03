@@ -18,7 +18,9 @@ public class GrubBehavior : MonoBehaviour {
     private GrubArmyBehavior _grubArmyBehavior;
     private bool _hasNearbyWheat;
     private bool _isTouchingBat;
+    private bool _isTouchingSpray;
     private bool _isFirstDamage;
+    private bool _isPoisoned;
     private GameObject _nearbyWheat;
     
     private const float Speed = 10.0f;
@@ -30,6 +32,8 @@ public class GrubBehavior : MonoBehaviour {
         _isFirstDamage = true;
         healthBar.gameObject.transform.parent.gameObject.SetActive(false);
         _isTouchingBat = false;
+        _isTouchingSpray = false;
+        _isPoisoned = false;
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -72,22 +76,40 @@ public class GrubBehavior : MonoBehaviour {
         if (other.gameObject.name.Contains("Bat")) {
             _isTouchingBat = true;
         }
+        else if (other.gameObject.name.Contains("SprayCan")) {
+            _isTouchingSpray = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         if (other.gameObject.name.Contains("Bat")) {
             _isTouchingBat = false;
         }
+        else if (other.gameObject.name.Contains("SprayCan")) {
+            _isTouchingSpray = false;
+        }
     }
 
     private void TakeDamage() {
-        if (_isTouchingBat) {
+        if (_isTouchingBat || _isTouchingSpray || _isPoisoned) {
             if (_isFirstDamage) {
                 healthBar.gameObject.transform.parent.gameObject.SetActive(true);
                 _isFirstDamage = false;
             }
-            _health -= 0.3f;
-            healthBar.SetHealth(_health);
+
+            if (_isTouchingBat) {
+                _health -= 0.3f;
+                healthBar.SetHealth(_health);
+            }
+
+            if (_isPoisoned) {
+                _health -= 0.1f;
+                healthBar.SetHealth(_health);
+            }
+
+            if (_isTouchingSpray) {
+                _isPoisoned = true;
+            }
 
             if (_health <= 0.0f) {
                 if (_grubArmyBehavior.numOfGrubs == 1) {
