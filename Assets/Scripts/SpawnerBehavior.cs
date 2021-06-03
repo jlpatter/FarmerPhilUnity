@@ -10,7 +10,7 @@ public class SpawnerBehavior : MonoBehaviour {
 
     // Start is called before the first frame update
     private void Start() {
-        _wheatField = GameObject.FindGameObjectWithTag("WheatField");
+        _wheatField = GameObject.Find("WheatField");
         
         SpawnWheat();
         SpawnGrubs();
