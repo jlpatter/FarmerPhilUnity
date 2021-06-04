@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerBehavior : MonoBehaviour {
 
     public GameObject bat;
+    public GameObject bearTrapPrefab;
     public GameObject gameOverCanvas;
     public PlayerHealthBar healthBar;
     public PauseMenu pauseMenu;
@@ -40,21 +41,20 @@ public class PlayerBehavior : MonoBehaviour {
         if (!pauseMenu.IsPaused && !startMenu.IsStart && !shopMenu.IsShop) {
             TakeDamage();
             SwitchWeapon();
-            if (_weapons[_currentWeaponIndex].Item1.name.Contains("Bat")) {
-                foreach (var (weapon, _) in _weapons) {
-                    if (!weapon.name.Contains("Bat")) {
-                        weapon.SetActive(false);
-                    }
+            foreach (var (weapon, _) in _weapons) {
+                if (!weapon.name.Contains(_weapons[_currentWeaponIndex].Item1.name)) {
+                    weapon.SetActive(false);
                 }
+            }
+            if (_weapons[_currentWeaponIndex].Item1.name.Contains("Bat")) {
                 SwingBat();
             }
             else if (_weapons[_currentWeaponIndex].Item1.name.Contains("SprayCan")) {
-                foreach (var (weapon, _) in _weapons) {
-                    if (!weapon.name.Contains("SprayCan")) {
-                        weapon.SetActive(false);
-                    }
-                }
                 SprayCan();
+            }
+            else if (_weapons[_currentWeaponIndex].Item1.name.Contains("BearTrapHold")) {
+                _weapons[_currentWeaponIndex].Item1.SetActive(true);
+                PlantBearTrap();
             }
             MovePlayer();
         }
@@ -124,6 +124,12 @@ public class PlayerBehavior : MonoBehaviour {
         }
         else {
             _weapons[_currentWeaponIndex].Item1.SetActive(false);
+        }
+    }
+
+    private void PlantBearTrap() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Instantiate(bearTrapPrefab, transform.position, Quaternion.identity);
         }
     }
 

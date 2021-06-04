@@ -7,6 +7,7 @@ namespace Menus {
         
         public GameObject player;
         public GameObject sprayCanPrefab;
+        public GameObject bearTrapHoldPrefab;
         public GameManagerBehavior gameManagerBehavior;
         public SpawnerBehavior spawnerBehavior;
         public GrubArmyBehavior grubArmyBehavior;
@@ -41,6 +42,14 @@ namespace Menus {
                 }
                 newSprayCan.SetActive(false);
                 _playerBehavior.AddWeapon(newSprayCan);
+            }
+        }
+
+        public void PurchaseBearTraps() {
+            if (!_playerBehavior.HasWeapon("BearTrapHold")) {
+                var newBearTrapHold = Instantiate(bearTrapHoldPrefab, player.transform.position, Quaternion.identity, player.transform);
+                newBearTrapHold.SetActive(false);
+                _playerBehavior.AddWeapon(newBearTrapHold);
             }
         }
 
