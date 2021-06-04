@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour {
+    public int Money { get; set; }
 
     public GameObject bat;
     public GameObject bearTrapPrefab;
@@ -30,6 +31,7 @@ public class PlayerBehavior : MonoBehaviour {
     // Start is called before the first frame update
     private void Start() {
         _health = MaxHealth;
+        Money = 0;
         _currentWeaponIndex = 0;
         _isTouchingGrubby = false;
         _hasGoneRight = false;

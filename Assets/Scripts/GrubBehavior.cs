@@ -17,6 +17,7 @@ public class GrubBehavior : MonoBehaviour {
     private GameObject _wheatField;
     private GameObject _grubArmy;
     private GrubArmyBehavior _grubArmyBehavior;
+    private GameManagerBehavior _gameManagerBehavior;
     private bool _hasNearbyWheat;
     private bool _isTouchingBat;
     private bool _isTouchingSpray;
@@ -44,6 +45,7 @@ public class GrubBehavior : MonoBehaviour {
         _wheatField = GameObject.FindGameObjectWithTag("WheatField");
         _grubArmy = GameObject.Find("GrubArmy");
         _grubArmyBehavior = _grubArmy.GetComponent<GrubArmyBehavior>();
+        _gameManagerBehavior = GameObject.Find("GameManager").GetComponent<GameManagerBehavior>();
         _pauseMenu = GameObject.Find("PauseMenuManager").GetComponent<PauseMenuManager>().pauseMenu;
         _startMenu = GameObject.Find("StartMenuManager").GetComponent<StartMenuManager>().startMenu;
         _shopMenu = GameObject.Find("ShopMenuManager").GetComponent<ShopMenuManager>().shopMenu;
@@ -120,7 +122,7 @@ public class GrubBehavior : MonoBehaviour {
 
             if (_health <= 0.0f) {
                 if (_grubArmyBehavior.NumOfGrubs == 1) {
-                    _shopMenu.SetIsShop(true);
+                    _gameManagerBehavior.EndWave();
                 }
 
                 _grubArmyBehavior.NumOfGrubs--;
