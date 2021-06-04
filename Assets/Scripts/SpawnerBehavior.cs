@@ -59,7 +59,7 @@ public class SpawnerBehavior : MonoBehaviour {
                 xRandom = Random.Range(-1, 2);
                 yRandom = Random.Range(-1, 2);
             }
-            Instantiate(grubPrefab, new Vector3(stageDimensions.x * xRandom, stageDimensions.y * yRandom, 0.0f), Quaternion.identity, _grubArmy.transform);
+            Instantiate(grubPrefab, new Vector3(stageDimensions.x * xRandom, stageDimensions.y * yRandom, -2.0f), Quaternion.identity, _grubArmy.transform);
         }
         _grubArmyBehavior.NumOfGrubs = _grubArmyBehavior.NumOfGrubsForWave;
     }

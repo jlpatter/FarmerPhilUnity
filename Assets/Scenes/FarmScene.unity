@@ -1063,7 +1063,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f6ac4f967e64a459dd7c3d39458fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPaused: 0
 --- !u!1 &510787566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,7 +1277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f7e18b185861b4081b50eac49f2567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numOfGrubs: 0
 --- !u!1 &753724621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,7 +1327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2cb3d988062d2042ba9c8588f30f1a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStart: 0
 --- !u!1 &811793392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1833,7 +1830,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9f56028043e0540b0f0473638db3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWave: 0
 --- !u!1 &1122911073
 GameObject:
   m_ObjectHideFlags: 0
@@ -17689,7 +17685,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469080091}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.67, y: -1.42, z: 0}
+  m_LocalPosition: {x: -5.67, y: -1.42, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2089526710}
@@ -17780,7 +17776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf3652a950bb4a46869e488a91761be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShop: 0
   player: {fileID: 1469080091}
   sprayCanPrefab: {fileID: 7788792821090153017, guid: 209bca8efc4705c41856e9af6a210156, type: 3}
   gameManagerBehavior: {fileID: 1006902001}
@@ -18421,7 +18416,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2089526707}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6300001, y: 0.13, z: 0}
+  m_LocalPosition: {x: -0.6300001, y: 0.13, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1469080093}
