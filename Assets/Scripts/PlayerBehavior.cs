@@ -40,7 +40,7 @@ public class PlayerBehavior : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
         ShowPauseMenu();
-        if (!pauseMenu.isPaused && !startMenu.isStart && !shopMenu.isShop) {
+        if (!pauseMenu.IsPaused && !startMenu.IsStart && !shopMenu.IsShop) {
             TakeDamage();
             SwitchWeapon();
             if (_weapons[_currentWeaponIndex].Item1.name.Contains("Bat")) {
@@ -91,7 +91,7 @@ public class PlayerBehavior : MonoBehaviour {
     private void ShowPauseMenu() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             pauseCanvas.SetActive(!pauseCanvas.activeSelf);
-            pauseMenu.isPaused = !pauseMenu.isPaused;
+            pauseMenu.IsPaused = !pauseMenu.IsPaused;
         }
     }
 

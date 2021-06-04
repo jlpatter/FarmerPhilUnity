@@ -51,7 +51,7 @@ public class SpawnerBehavior : MonoBehaviour {
 
     public void SpawnGrubs() {
         var stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,0));
-        for (var i = 0; i < _grubArmyBehavior.numOfGrubs; i++) {
+        for (var i = 0; i < _grubArmyBehavior.NumOfGrubs; i++) {
             var xRandom = 0;
             var yRandom = 0;
             // Don't allow both to be 0 as that would put the grub in the center of the field.

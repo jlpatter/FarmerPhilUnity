@@ -3,7 +3,8 @@ using UnityEngine.UI;
 
 namespace Menus {
     public class ShopMenu : MonoBehaviour {
-        public bool isShop;
+        public bool IsShop { get; private set; }
+        
         public GameObject player;
         public GameObject sprayCanPrefab;
         public GameManagerBehavior gameManagerBehavior;
@@ -22,9 +23,9 @@ namespace Menus {
 
         public void ContinueGame() {
             SetIsShop(false);
-            gameManagerBehavior.currentWave++;
-            _waveCounterText.text = gameManagerBehavior.currentWave.ToString();
-            grubArmyBehavior.numOfGrubs += 2;
+            gameManagerBehavior.CurrentWave++;
+            _waveCounterText.text = gameManagerBehavior.CurrentWave.ToString();
+            grubArmyBehavior.NumOfGrubs += 2;
             spawnerBehavior.SpawnGrubs();
         }
 
@@ -44,7 +45,7 @@ namespace Menus {
         }
 
         public void SetIsShop(bool isShopValue) {
-            isShop = isShopValue;
+            IsShop = isShopValue;
             transform.parent.parent.gameObject.SetActive(isShopValue);
         }
     }

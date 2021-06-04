@@ -51,7 +51,7 @@ public class GrubBehavior : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
-        if (!_pauseMenu.isPaused && !_startMenu.isStart && !_shopMenu.isShop) {
+        if (!_pauseMenu.IsPaused && !_startMenu.IsStart && !_shopMenu.IsShop) {
             TakeDamage();
             
             if (IsNearPlayer()) {
@@ -115,11 +115,11 @@ public class GrubBehavior : MonoBehaviour {
             }
 
             if (_health <= 0.0f) {
-                if (_grubArmyBehavior.numOfGrubs == 1) {
+                if (_grubArmyBehavior.NumOfGrubs == 1) {
                     _shopMenu.SetIsShop(true);
                 }
 
-                _grubArmyBehavior.numOfGrubs--;
+                _grubArmyBehavior.NumOfGrubs--;
                 Destroy(gameObject);
             }
         }

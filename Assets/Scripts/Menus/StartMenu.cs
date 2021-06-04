@@ -2,14 +2,14 @@ using UnityEngine;
 
 namespace Menus {
     public class StartMenu : MonoBehaviour {
-        public bool isStart;
+        public bool IsStart { get; private set; }
 
         private void Start() {
-            isStart = true;
+            IsStart = true;
         }
 
         public void ContinueGame() {
-            isStart = false;
+            IsStart = false;
             transform.parent.parent.gameObject.SetActive(false);
         }
     }

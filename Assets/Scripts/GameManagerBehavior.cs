@@ -1,9 +1,9 @@
 using UnityEngine;
 
 public class GameManagerBehavior : MonoBehaviour {
-    public int currentWave;
+    public int CurrentWave { get; set; }
 
     private void Start() {
-        currentWave = 1;
+        CurrentWave = 1;
     }
 }

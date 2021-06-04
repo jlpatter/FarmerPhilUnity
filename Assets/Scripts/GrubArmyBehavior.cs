@@ -1,9 +1,9 @@
 using UnityEngine;
 
 public class GrubArmyBehavior : MonoBehaviour {
-    public int numOfGrubs;
+    public int NumOfGrubs { get; set; }
 
     private void Start() {
-        numOfGrubs = 4;
+        NumOfGrubs = 4;
     }
 }

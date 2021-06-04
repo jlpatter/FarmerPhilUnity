@@ -27,7 +27,7 @@ public class WheatBehavior : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
-        if (!_pauseMenu.isPaused && !_startMenu.isStart && !_shopMenu.isShop) {
+        if (!_pauseMenu.IsPaused && !_startMenu.IsStart && !_shopMenu.IsShop) {
             if (_isTouchingGrubby) {
                 if (_isFirstDamage) {
                     healthBar.gameObject.transform.parent.gameObject.SetActive(true);
