@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - WheatField
+  - Bat
+  - Spray Can
+  - Bear Trap
   layers:
   - Default
   - TransparentFX

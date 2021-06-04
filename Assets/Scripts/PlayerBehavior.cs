@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Menus;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour {
 
@@ -13,6 +14,7 @@ public class PlayerBehavior : MonoBehaviour {
     public PauseMenu pauseMenu;
     public StartMenu startMenu;
     public ShopMenu shopMenu;
+    public Text currentWeaponText;
 
     private float _health;
     private int _currentWeaponIndex;
@@ -98,17 +100,24 @@ public class PlayerBehavior : MonoBehaviour {
     }
 
     private void SwitchWeapon() {
+        var changedWeapon = false;
         if (Input.GetKeyDown(KeyCode.E)) {
+            changedWeapon = true;
             _currentWeaponIndex++;
             if (_currentWeaponIndex >= _weapons.Count) {
                 _currentWeaponIndex = 0;
             }
         }
         else if (Input.GetKeyDown(KeyCode.Q)) {
+            changedWeapon = true;
             _currentWeaponIndex--;
             if (_currentWeaponIndex < 0) {
                 _currentWeaponIndex = _weapons.Count - 1;
             }
+        }
+
+        if (changedWeapon) {
+            currentWeaponText.text = _weapons[_currentWeaponIndex].Item1.tag;
         }
     }
 
