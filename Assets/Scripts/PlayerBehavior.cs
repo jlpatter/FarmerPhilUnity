@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Menus;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -76,6 +77,15 @@ public class PlayerBehavior : MonoBehaviour {
 
     public void AddWeapon(GameObject w) {
         _weapons.Add(new Tuple<GameObject, SpriteRenderer>(w, w.GetComponent<SpriteRenderer>()));
+    }
+
+    public bool HasWeapon(string weaponName) {
+        var hasWeapon = false;
+        foreach (var _ in _weapons.Where(weapon => weapon.Item1.name.Contains(weaponName))) {
+            hasWeapon = true;
+        }
+
+        return hasWeapon;
     }
 
     private void ShowPauseMenu() {

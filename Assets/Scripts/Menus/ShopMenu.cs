@@ -10,6 +10,8 @@ namespace Menus {
 
         private PlayerBehavior _playerBehavior;
 
+        private const float SprayCanOffset = 0.2f;
+
         private void Start() {
             _playerBehavior = player.GetComponent<PlayerBehavior>();
         }
@@ -21,9 +23,18 @@ namespace Menus {
         }
 
         public void PurchaseSprayCan() {
-            var newSprayCan = Instantiate(sprayCanPrefab, new Vector3(player.transform.position.x, player.transform.position.y), Quaternion.identity, player.transform);
-            newSprayCan.SetActive(false);
-            _playerBehavior.AddWeapon(newSprayCan);
+            if (!_playerBehavior.HasWeapon("SprayCan")) {
+                GameObject newSprayCan;
+                if (player.GetComponent<SpriteRenderer>().flipX) {
+                    newSprayCan = Instantiate(sprayCanPrefab, new Vector3(player.transform.position.x + sprayCanPrefab.GetComponent<SpriteRenderer>().bounds.size.x / 2.0f + SprayCanOffset, player.transform.position.y), Quaternion.identity, player.transform);
+                    newSprayCan.GetComponent<SpriteRenderer>().flipX = true;
+                }
+                else {
+                    newSprayCan = Instantiate(sprayCanPrefab, new Vector3(player.transform.position.x - sprayCanPrefab.GetComponent<SpriteRenderer>().bounds.size.x / 2.0f - SprayCanOffset, player.transform.position.y), Quaternion.identity, player.transform);
+                }
+                newSprayCan.SetActive(false);
+                _playerBehavior.AddWeapon(newSprayCan);
+            }
         }
 
         public void SetIsShop(bool isShopValue) {
