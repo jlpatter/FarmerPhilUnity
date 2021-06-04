@@ -56,11 +56,15 @@ public class GrubBehavior : MonoBehaviour {
             
             if (IsNearPlayer()) {
                 _hasNearbyWheat = false;
+                if (_nearbyWheat != null) {
+                    _nearbyWheat.GetComponent<WheatBehavior>().IsTarget = false;
+                }
                 FollowGameObject(_playerGameObject);
             }
             else {
                 if ((!_hasNearbyWheat || _nearbyWheat == null) && _wheatField.transform.childCount != 0) {
                     _nearbyWheat = FindNearestWheat();
+                    _nearbyWheat.GetComponent<WheatBehavior>().IsTarget = true;
                     _hasNearbyWheat = true;
                 }
 
@@ -125,7 +129,7 @@ public class GrubBehavior : MonoBehaviour {
         }
     }
 
-    public bool IsNearPlayer() {
+    private bool IsNearPlayer() {
         var currentDistance = (transform.position - _playerGameObject.transform.position).magnitude;
         return currentDistance < 2.0f;
     }

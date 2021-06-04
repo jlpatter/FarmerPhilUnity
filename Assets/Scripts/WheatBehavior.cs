@@ -2,6 +2,8 @@ using Menus;
 using UnityEngine;
 
 public class WheatBehavior : MonoBehaviour {
+    
+    public bool IsTarget { get; set; }
 
     public PlayerHealthBar healthBar;
 
@@ -16,6 +18,7 @@ public class WheatBehavior : MonoBehaviour {
     
     // Start is called before the first frame update
     private void Start() {
+        IsTarget = false;
         _health = MaxHealth;
         _isTouchingGrubby = false;
         _isFirstDamage = true;
@@ -28,7 +31,7 @@ public class WheatBehavior : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
         if (!_pauseMenu.IsPaused && !_startMenu.IsStart && !_shopMenu.IsShop) {
-            if (_isTouchingGrubby) {
+            if (_isTouchingGrubby && IsTarget) {
                 if (_isFirstDamage) {
                     healthBar.gameObject.transform.parent.gameObject.SetActive(true);
                     _isFirstDamage = false;
@@ -46,17 +49,13 @@ public class WheatBehavior : MonoBehaviour {
     
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.name.Contains("Grubby")) {
-            if (!other.gameObject.GetComponent<GrubBehavior>().IsNearPlayer()) {
-                _isTouchingGrubby = true;
-            }
+            _isTouchingGrubby = true;
         }
     }
 
     private void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.name.Contains("Grubby")) {
-            if (!other.gameObject.GetComponent<GrubBehavior>().IsNearPlayer()) {
-                _isTouchingGrubby = true;
-            }
+            _isTouchingGrubby = true;
         }
     }
 
