@@ -13,7 +13,7 @@ public class GrubBehavior : MonoBehaviour {
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
-    private GameObject _playerGameObject;
+    private GameObject _player;
     private GameObject _wheatField;
     private GameObject _grubArmy;
     private GrubArmyBehavior _grubArmyBehavior;
@@ -40,7 +40,7 @@ public class GrubBehavior : MonoBehaviour {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rigidbody2D.isKinematic = true;
-        _playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        _player = GameObject.FindGameObjectWithTag("Player");
         _wheatField = GameObject.FindGameObjectWithTag("WheatField");
         _grubArmy = GameObject.Find("GrubArmy");
         _grubArmyBehavior = _grubArmy.GetComponent<GrubArmyBehavior>();
@@ -59,7 +59,7 @@ public class GrubBehavior : MonoBehaviour {
                 if (_nearbyWheat != null) {
                     _nearbyWheat.GetComponent<WheatBehavior>().IsTarget = false;
                 }
-                FollowGameObject(_playerGameObject);
+                FollowGameObject(_player);
             }
             else {
                 if ((!_hasNearbyWheat || _nearbyWheat == null) && _wheatField.transform.childCount != 0) {
@@ -69,7 +69,7 @@ public class GrubBehavior : MonoBehaviour {
                 }
 
                 if (_wheatField.transform.childCount == 0) {
-                    FollowGameObject(_playerGameObject);
+                    FollowGameObject(_player);
                 }
                 else {
                     FollowGameObject(_nearbyWheat);
@@ -130,7 +130,10 @@ public class GrubBehavior : MonoBehaviour {
     }
 
     private bool IsNearPlayer() {
-        var currentDistance = (transform.position - _playerGameObject.transform.position).magnitude;
+        if (_player == null) {
+            return false;
+        }
+        var currentDistance = (transform.position - _player.transform.position).magnitude;
         return currentDistance < 2.0f;
     }
 
@@ -148,6 +151,9 @@ public class GrubBehavior : MonoBehaviour {
     }
 
     private void FollowGameObject(GameObject gameObjectToTravelTo) {
+        if (gameObjectToTravelTo == null) {
+            return;
+        }
         var travelVector = new Vector2(_rigidbody2D.position.x, _rigidbody2D.position.y);
         var isMoving = false;
         if (gameObjectToTravelTo.transform.position.x - DeadZone > travelVector.x) {

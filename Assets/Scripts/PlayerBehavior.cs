@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Menus;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerBehavior : MonoBehaviour {
 
-    [FormerlySerializedAs("PauseCanvas")]
-    public GameObject pauseCanvas;
     public GameObject bat;
+    public GameObject gameOverCanvas;
     public PlayerHealthBar healthBar;
     public PauseMenu pauseMenu;
     public StartMenu startMenu;
@@ -39,7 +37,6 @@ public class PlayerBehavior : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
-        ShowPauseMenu();
         if (!pauseMenu.IsPaused && !startMenu.IsStart && !shopMenu.IsShop) {
             TakeDamage();
             SwitchWeapon();
@@ -88,17 +85,15 @@ public class PlayerBehavior : MonoBehaviour {
         return hasWeapon;
     }
 
-    private void ShowPauseMenu() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            pauseCanvas.SetActive(!pauseCanvas.activeSelf);
-            pauseMenu.IsPaused = !pauseMenu.IsPaused;
-        }
-    }
-
     private void TakeDamage() {
         if (_isTouchingGrubby) {
             _health -= GrubStrength;
             healthBar.SetHealth(_health);
+
+            if (_health <= 0.0f) {
+                gameOverCanvas.SetActive(true);
+                Destroy(gameObject);
+            }
         }
     }
 
