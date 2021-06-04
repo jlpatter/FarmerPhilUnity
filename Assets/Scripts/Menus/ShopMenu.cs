@@ -1,24 +1,30 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Menus {
     public class ShopMenu : MonoBehaviour {
         public bool isShop;
         public GameObject player;
         public GameObject sprayCanPrefab;
+        public GameManagerBehavior gameManagerBehavior;
         public SpawnerBehavior spawnerBehavior;
         public GrubArmyBehavior grubArmyBehavior;
 
         private PlayerBehavior _playerBehavior;
+        private Text _waveCounterText;
 
         private const float SprayCanOffset = 0.2f;
 
         private void Start() {
             _playerBehavior = player.GetComponent<PlayerBehavior>();
+            _waveCounterText = GameObject.Find("WaveCounter").transform.Find("Counter").gameObject.GetComponent<Text>();
         }
 
         public void ContinueGame() {
             SetIsShop(false);
-            grubArmyBehavior.numOfGrubs = 5;
+            gameManagerBehavior.currentWave++;
+            _waveCounterText.text = gameManagerBehavior.currentWave.ToString();
+            grubArmyBehavior.numOfGrubs += 2;
             spawnerBehavior.SpawnGrubs();
         }
 
