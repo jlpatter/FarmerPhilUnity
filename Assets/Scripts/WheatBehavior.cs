@@ -46,7 +46,17 @@ public class WheatBehavior : MonoBehaviour {
     
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.name.Contains("Grubby")) {
-            _isTouchingGrubby = true;
+            if (!other.gameObject.GetComponent<GrubBehavior>().IsNearPlayer()) {
+                _isTouchingGrubby = true;
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other) {
+        if (other.gameObject.name.Contains("Grubby")) {
+            if (!other.gameObject.GetComponent<GrubBehavior>().IsNearPlayer()) {
+                _isTouchingGrubby = true;
+            }
         }
     }
 

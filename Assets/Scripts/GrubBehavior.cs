@@ -125,7 +125,7 @@ public class GrubBehavior : MonoBehaviour {
         }
     }
 
-    private bool IsNearPlayer() {
+    public bool IsNearPlayer() {
         var currentDistance = (transform.position - _playerGameObject.transform.position).magnitude;
         return currentDistance < 2.0f;
     }
