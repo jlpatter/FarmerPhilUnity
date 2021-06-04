@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class GrubArmyBehavior : MonoBehaviour {
     public int NumOfGrubs { get; set; }
+    public int NumOfGrubsForWave { get; set; }
 
     private void Start() {
-        NumOfGrubs = 4;
+        NumOfGrubsForWave = 4;
+        NumOfGrubs = NumOfGrubsForWave;
     }
 }

@@ -25,7 +25,7 @@ namespace Menus {
             SetIsShop(false);
             gameManagerBehavior.CurrentWave++;
             _waveCounterText.text = gameManagerBehavior.CurrentWave.ToString();
-            grubArmyBehavior.NumOfGrubs += 2;
+            grubArmyBehavior.NumOfGrubsForWave += 2;
             spawnerBehavior.SpawnGrubs();
         }
 
