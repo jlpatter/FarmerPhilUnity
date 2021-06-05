@@ -53,7 +53,13 @@ namespace Menus {
 
         public void PurchaseBearTraps() {
             if (!_playerBehavior.HasWeapon("BearTrapHold") && _playerBehavior.Money >= BearTrapCost) {
-                var newBearTrapHold = Instantiate(bearTrapHoldPrefab, player.transform.position, Quaternion.identity, player.transform);
+                GameObject newBearTrapHold;
+                if (player.GetComponent<SpriteRenderer>().flipX) {
+                    newBearTrapHold = Instantiate(bearTrapHoldPrefab, new Vector3(player.transform.position.x + bearTrapHoldPrefab.GetComponent<SpriteRenderer>().bounds.size.x / 2.0f, player.transform.position.y, -1.0f), Quaternion.identity, player.transform);
+                }
+                else {
+                    newBearTrapHold = Instantiate(bearTrapHoldPrefab, new Vector3(player.transform.position.x - bearTrapHoldPrefab.GetComponent<SpriteRenderer>().bounds.size.x / 2.0f, player.transform.position.y, -1.0f), Quaternion.identity, player.transform);
+                }
                 newBearTrapHold.SetActive(false);
                 _playerBehavior.AddWeapon(newBearTrapHold);
                 _playerBehavior.Money -= BearTrapCost;

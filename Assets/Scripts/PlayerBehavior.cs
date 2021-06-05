@@ -146,7 +146,12 @@ public class PlayerBehavior : MonoBehaviour {
 
     private void PlantBearTrap() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            Instantiate(bearTrapPrefab, transform.position, Quaternion.identity);
+            if (_spriteRenderer.flipX) {
+                Instantiate(bearTrapPrefab, new Vector3(transform.position.x + bearTrapPrefab.GetComponent<SpriteRenderer>().bounds.size.x / 2.0f, transform.position.y, -1.0f), Quaternion.identity);
+            }
+            else {
+                Instantiate(bearTrapPrefab, new Vector3(transform.position.x - bearTrapPrefab.GetComponent<SpriteRenderer>().bounds.size.x / 2.0f, transform.position.y, -1.0f), Quaternion.identity);
+            }
         }
     }
 
