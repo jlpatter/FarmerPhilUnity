@@ -18,8 +18,8 @@ namespace Menus {
         private Text _waveCounterText;
 
         private const float SprayCanOffset = 0.2f;
-        private const int SprayCanCost = 5;
-        private const int BearTrapCost = 20;
+        private const int SprayCanCost = 50;
+        private const int BearTrapCost = 100;
         private const int HealthCost = 50;
 
         private void Start() {

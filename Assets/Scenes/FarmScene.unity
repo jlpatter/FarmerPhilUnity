@@ -1787,7 +1787,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Spray Can: $5'
+  m_Text: 'Spray Can: $50'
 --- !u!222 &857485327
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18532,7 +18532,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Bear Traps: $20'
+  m_Text: 'Bear Traps: $100'
 --- !u!222 &1504165928
 CanvasRenderer:
   m_ObjectHideFlags: 0
