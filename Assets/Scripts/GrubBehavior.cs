@@ -25,7 +25,7 @@ public class GrubBehavior : MonoBehaviour {
     private bool _isPoisoned;
     private GameObject _nearbyWheat;
     
-    private const float Speed = 10.0f;
+    private const float Speed = 1.0f;
     private const float DeadZone = 0.1f;
 
     // Start is called before the first frame update
@@ -52,7 +52,7 @@ public class GrubBehavior : MonoBehaviour {
     }
 
     // Update is called once per frame
-    private void Update() {
+    private void FixedUpdate() {
         if (!_pauseMenu.IsPaused && !_startMenu.IsStart && !_shopMenu.IsShop) {
             TakeDamage();
             
@@ -106,12 +106,12 @@ public class GrubBehavior : MonoBehaviour {
             }
 
             if (_isTouchingBat) {
-                _health -= 0.3f;
+                _health -= 2.7f;
                 healthBar.SetHealth(_health);
             }
 
             if (_isPoisoned) {
-                _health -= 0.1f;
+                _health -= 0.9f;
                 healthBar.SetHealth(_health);
             }
 
