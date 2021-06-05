@@ -9,6 +9,8 @@ public class PlayerBehavior : MonoBehaviour {
     public int Money { get; set; }
     public float Health { get; private set; }
     public float MaxHealth { get; private set; }
+    public List<Tuple<GameObject, SpriteRenderer>> Weapons { get; private set; }
+    public int CurrentWeaponIndex { get; set; }
 
     public GameObject bat;
     public GameObject bearTrapPrefab;
@@ -19,10 +21,8 @@ public class PlayerBehavior : MonoBehaviour {
     public ShopMenu shopMenu;
     public Text currentWeaponText;
     
-    private int _currentWeaponIndex;
     private bool _isTouchingGrubby;
     private bool _hasGoneRight;
-    private List<Tuple<GameObject, SpriteRenderer>> _weapons;
     private SpriteRenderer _spriteRenderer;
     
     private const float GrubStrength = 0.05f;
@@ -33,11 +33,11 @@ public class PlayerBehavior : MonoBehaviour {
         MaxHealth = 100.0f;
         Health = MaxHealth;
         Money = 0;
-        _currentWeaponIndex = 0;
+        CurrentWeaponIndex = 0;
         _isTouchingGrubby = false;
         _hasGoneRight = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _weapons = new List<Tuple<GameObject, SpriteRenderer>>();
+        Weapons = new List<Tuple<GameObject, SpriteRenderer>>();
         AddWeapon(bat);
     }
 
@@ -46,19 +46,19 @@ public class PlayerBehavior : MonoBehaviour {
         if (!pauseMenu.IsPaused && !startMenu.IsStart && !shopMenu.IsShop) {
             TakeDamage();
             SwitchWeapon();
-            foreach (var (weapon, _) in _weapons) {
-                if (!weapon.name.Contains(_weapons[_currentWeaponIndex].Item1.name)) {
+            foreach (var (weapon, _) in Weapons) {
+                if (!weapon.name.Contains(Weapons[CurrentWeaponIndex].Item1.name)) {
                     weapon.SetActive(false);
                 }
             }
-            if (_weapons[_currentWeaponIndex].Item1.name.Contains("Bat")) {
+            if (Weapons[CurrentWeaponIndex].Item1.name.Contains("Bat")) {
                 SwingBat();
             }
-            else if (_weapons[_currentWeaponIndex].Item1.name.Contains("SprayCan")) {
+            else if (Weapons[CurrentWeaponIndex].Item1.name.Contains("SprayCan")) {
                 SprayCan();
             }
-            else if (_weapons[_currentWeaponIndex].Item1.name.Contains("BearTrapHold")) {
-                _weapons[_currentWeaponIndex].Item1.SetActive(true);
+            else if (Weapons[CurrentWeaponIndex].Item1.name.Contains("BearTrapHold")) {
+                Weapons[CurrentWeaponIndex].Item1.SetActive(true);
                 PlantBearTrap();
             }
             MovePlayer();
@@ -78,12 +78,12 @@ public class PlayerBehavior : MonoBehaviour {
     }
 
     public void AddWeapon(GameObject w) {
-        _weapons.Add(new Tuple<GameObject, SpriteRenderer>(w, w.GetComponent<SpriteRenderer>()));
+        Weapons.Add(new Tuple<GameObject, SpriteRenderer>(w, w.GetComponent<SpriteRenderer>()));
     }
 
     public bool HasWeapon(string weaponName) {
         var hasWeapon = false;
-        foreach (var _ in _weapons.Where(weapon => weapon.Item1.name.Contains(weaponName))) {
+        foreach (var _ in Weapons.Where(weapon => weapon.Item1.name.Contains(weaponName))) {
             hasWeapon = true;
         }
 
@@ -111,36 +111,36 @@ public class PlayerBehavior : MonoBehaviour {
         var changedWeapon = false;
         if (Input.GetKeyDown(KeyCode.E)) {
             changedWeapon = true;
-            _currentWeaponIndex++;
-            if (_currentWeaponIndex >= _weapons.Count) {
-                _currentWeaponIndex = 0;
+            CurrentWeaponIndex++;
+            if (CurrentWeaponIndex >= Weapons.Count) {
+                CurrentWeaponIndex = 0;
             }
         }
         else if (Input.GetKeyDown(KeyCode.Q)) {
             changedWeapon = true;
-            _currentWeaponIndex--;
-            if (_currentWeaponIndex < 0) {
-                _currentWeaponIndex = _weapons.Count - 1;
+            CurrentWeaponIndex--;
+            if (CurrentWeaponIndex < 0) {
+                CurrentWeaponIndex = Weapons.Count - 1;
             }
         }
 
         if (changedWeapon) {
-            currentWeaponText.text = _weapons[_currentWeaponIndex].Item1.tag;
+            currentWeaponText.text = Weapons[CurrentWeaponIndex].Item1.tag;
         }
     }
 
     private void SwingBat() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            _weapons[_currentWeaponIndex].Item1.SetActive(true);
+            Weapons[CurrentWeaponIndex].Item1.SetActive(true);
         }
     }
 
     private void SprayCan() {
         if (Input.GetKey(KeyCode.Space)) {
-            _weapons[_currentWeaponIndex].Item1.SetActive(true);
+            Weapons[CurrentWeaponIndex].Item1.SetActive(true);
         }
         else {
-            _weapons[_currentWeaponIndex].Item1.SetActive(false);
+            Weapons[CurrentWeaponIndex].Item1.SetActive(false);
         }
     }
 
@@ -158,11 +158,11 @@ public class PlayerBehavior : MonoBehaviour {
     private void MovePlayer() {
         if (Input.GetAxisRaw("Horizontal") > 0) {
             _spriteRenderer.flipX = true;
-            foreach (var weapon in _weapons) {
+            foreach (var weapon in Weapons) {
                 weapon.Item2.flipX = true;
             }
             if (!_hasGoneRight) {
-                foreach (var (weapon, _) in _weapons) {
+                foreach (var (weapon, _) in Weapons) {
                     weapon.transform.localPosition = new Vector3(-weapon.transform.localPosition.x, weapon.transform.localPosition.y, weapon.transform.localPosition.z);
                 }
                 _hasGoneRight = true;
@@ -171,11 +171,11 @@ public class PlayerBehavior : MonoBehaviour {
 
         if (Input.GetAxisRaw("Horizontal") < 0) {
             _spriteRenderer.flipX = false;
-            foreach (var weapon in _weapons) {
+            foreach (var weapon in Weapons) {
                 weapon.Item2.flipX = false;
             }
             if (_hasGoneRight) {
-                foreach (var (weapon, _) in _weapons) {
+                foreach (var (weapon, _) in Weapons) {
                     weapon.transform.localPosition = new Vector3(-weapon.transform.localPosition.x, weapon.transform.localPosition.y, weapon.transform.localPosition.z);
                 }
                 _hasGoneRight = false;
