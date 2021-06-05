@@ -6,6 +6,7 @@ namespace Menus {
         public bool IsShop { get; private set; }
         
         public GameObject player;
+        public GameObject sprungBearTraps;
         public GameObject sprayCanPrefab;
         public GameObject bearTrapHoldPrefab;
         public GameManagerBehavior gameManagerBehavior;
@@ -30,6 +31,11 @@ namespace Menus {
             SetIsShop(false);
             gameManagerBehavior.CurrentWave++;
             _waveCounterText.text = gameManagerBehavior.CurrentWave.ToString();
+
+            foreach (Transform sprungBearTrapTransform in sprungBearTraps.transform) {
+                Destroy(sprungBearTrapTransform.gameObject);
+            }
+
             grubArmyBehavior.NumOfGrubsForWave += 2;
             spawnerBehavior.SpawnGrubs();
         }
