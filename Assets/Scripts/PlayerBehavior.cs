@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour {
     public int Money { get; set; }
+    public float Health { get; private set; }
+    public float MaxHealth { get; private set; }
 
     public GameObject bat;
     public GameObject bearTrapPrefab;
@@ -16,21 +18,20 @@ public class PlayerBehavior : MonoBehaviour {
     public StartMenu startMenu;
     public ShopMenu shopMenu;
     public Text currentWeaponText;
-
-    private float _health;
+    
     private int _currentWeaponIndex;
     private bool _isTouchingGrubby;
     private bool _hasGoneRight;
     private List<Tuple<GameObject, SpriteRenderer>> _weapons;
     private SpriteRenderer _spriteRenderer;
-
-    private const float MaxHealth = 100.0f;
+    
     private const float GrubStrength = 0.05f;
     private const float Speed = 5.0f;
 
     // Start is called before the first frame update
     private void Start() {
-        _health = MaxHealth;
+        MaxHealth = 100.0f;
+        Health = MaxHealth;
         Money = 0;
         _currentWeaponIndex = 0;
         _isTouchingGrubby = false;
@@ -88,13 +89,18 @@ public class PlayerBehavior : MonoBehaviour {
 
         return hasWeapon;
     }
+    
+    public void SetPlayerHealthToMax() {
+        Health = MaxHealth;
+        healthBar.SetHealth(Health);
+    }
 
     private void TakeDamage() {
         if (_isTouchingGrubby) {
-            _health -= GrubStrength;
-            healthBar.SetHealth(_health);
+            Health -= GrubStrength;
+            healthBar.SetHealth(Health);
 
-            if (_health <= 0.0f) {
+            if (Health <= 0.0f) {
                 gameOverCanvas.SetActive(true);
                 Destroy(gameObject);
             }

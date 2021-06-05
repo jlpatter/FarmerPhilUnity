@@ -19,6 +19,7 @@ namespace Menus {
         private const float SprayCanOffset = 0.2f;
         private const int SprayCanCost = 5;
         private const int BearTrapCost = 20;
+        private const int HealthCost = 50;
 
         private void Start() {
             _playerBehavior = player.GetComponent<PlayerBehavior>();
@@ -56,6 +57,14 @@ namespace Menus {
                 newBearTrapHold.SetActive(false);
                 _playerBehavior.AddWeapon(newBearTrapHold);
                 _playerBehavior.Money -= BearTrapCost;
+                moneyText.text = "$" + _playerBehavior.Money;
+            }
+        }
+
+        public void PurchaseHealth() {
+            if (_playerBehavior.Money >= HealthCost && _playerBehavior.Health < _playerBehavior.MaxHealth) {
+                _playerBehavior.SetPlayerHealthToMax();
+                _playerBehavior.Money -= HealthCost;
                 moneyText.text = "$" + _playerBehavior.Money;
             }
         }
