@@ -19305,7 +19305,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Instructions: Use the WASD keys to move, spacebar to use your weapon,
     E and Q to switch weapons, and Esc to pause. Kill all the grubs before they eat
-    your crops!'
+    your crops! See how many waves you can do!'
 --- !u!222 &2032654924
 CanvasRenderer:
   m_ObjectHideFlags: 0
